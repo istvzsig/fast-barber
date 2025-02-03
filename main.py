@@ -125,16 +125,20 @@ def list_barbers(db: Session = Depends(get_db)):
     return db.query(Barber).all()
 
 # Booking Routes
-@app.post("/bookings/")
-def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
-    new_booking = Booking(
-        user_id=booking.user_id,
-        barber_id=booking.barber_id,
-        appointment_time=booking.appointment_time
-    )
-    db.add(new_booking)
-    db.commit()
-    return new_booking
+@app.get("/bookings/")
+def get_bookings(request: Request, db: Session = Depends(get_db)):
+    bookings = db.query(Booking).all()
+    formatted_bookings = []
+    for booking in bookings:
+        user = db.query(User).filter(User.id == booking.user_id).first()
+        barber = db.query(Barber).filter(Barber.id == booking.barber_id).first()
+        formatted_bookings.append({
+            "user_name": user.username if user else "Unknown",
+            "barber_name": barber.name if barber else "Unknown",
+            "appointment_time": booking.appointment_time
+        })
+
+    return templates.TemplateResponse("bookings.html", {"request": request, "bookings": formatted_bookings})
 
 @app.get("/bookings/", response_model=List[BookingCreate])
 def list_bookings(db: Session = Depends(get_db)):
