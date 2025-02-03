@@ -140,7 +140,7 @@ def get_bookings(request: Request, db: Session = Depends(get_db)):
     barbers = db.query(Barber).all()
 
     # Get existing bookings
-    bookings = db.query(Booking).all()
+    bookings = reversed(db.query(Booking).all())
     formatted_bookings = []
     for booking in bookings:
         user = db.query(User).filter(User.id == booking.user_id).first()
