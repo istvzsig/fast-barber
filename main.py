@@ -70,6 +70,11 @@ class BookingCreate(BaseModel):
 class TokenData(BaseModel):
     username: Optional[str] = None
 
+class BookingCreate(BaseModel):
+    username: str
+    barber_id: int
+    appointment_time: datetime
+
 # Dependency to get DB session
 def get_db():
     db = SessionLocal()
@@ -131,6 +136,10 @@ def list_barbers(db: Session = Depends(get_db)):
 # Booking Routes
 @app.get("/bookings/")
 def get_bookings(request: Request, db: Session = Depends(get_db)):
+    # Get all barbers
+    barbers = db.query(Barber).all()
+
+    # Get existing bookings
     bookings = db.query(Booking).all()
     formatted_bookings = []
     for booking in bookings:
@@ -142,8 +151,28 @@ def get_bookings(request: Request, db: Session = Depends(get_db)):
             "appointment_time": booking.appointment_time
         })
 
-    return templates.TemplateResponse("bookings.html", {"request": request, "bookings": formatted_bookings})
+    return templates.TemplateResponse("bookings.html", {
+        "request": request, 
+        "bookings": formatted_bookings,
+        "barbers": barbers
+    })
 
-@app.get("/bookings/", response_model=List[BookingCreate])
-def list_bookings(db: Session = Depends(get_db)):
-    return db.query(Booking).all()
+@app.post("/bookings/")
+def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
+    # Check if the user exists, otherwise create one
+    user = db.query(User).filter(User.username == booking.username).first()
+    if not user:
+        user = User(username=booking.username, hashed_password="fakehash")  # No real password needed
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    # Create a new booking
+    new_booking = Booking(
+        user_id=user.id,
+        barber_id=booking.barber_id,
+        appointment_time=booking.appointment_time
+    )
+    db.add(new_booking)
+    db.commit()
+    return {"message": "Booking successful"}
