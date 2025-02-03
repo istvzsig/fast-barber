@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, Depends, HTTPException
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
@@ -16,6 +17,9 @@ app = FastAPI()
 # Set up templates directory
 BASE_DIR = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+
+# Serve static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Database setup
 DATABASE_URL = "sqlite:///./barbershop.db"
