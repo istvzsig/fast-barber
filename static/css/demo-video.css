@@ -1,0 +1,33 @@
+.demo-video::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1B191955;
+}
+
+.demo-video {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: url("../assets/demo-1.gif");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat !important;
+    z-index: -1000;
+}
+
+.demo-video::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1B1919;
+    mix-blend-mode: color;
+}

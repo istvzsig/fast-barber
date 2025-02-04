@@ -1,0 +1,86 @@
+@import url('./reset.css');
+@import url('./navigation.css');
+@import url('./demo-video.css');
+
+/* TODO: Extract this styles */
+div.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Frank Ruhl Libre", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+h1 {
+    font-size: 7vw;
+    color: ivory;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 5px;
+}
+
+h4 {
+    font-size: 4vw;
+    font-family: "Montserrat", sans-serif;
+    color: ivory;
+    text-align: center;
+
+}
+
+p.copyright {
+    text-align: center;
+    font-size: 10pt;
+    color: ivory;
+    opacity: 100%;
+    mix-blend-mode: overlay;
+
+}
+
+div.cta-container {
+    display: grid;
+    grid: auto / auto;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+div.cta-container *:not(img, p) {
+    padding: 1rem 4rem;
+    box-shadow: inset 1px 1px 0 #E6BE8A, inset -1px -1px 0 #E6BE8A;
+}
+
+div.cta-container * {
+    font-size: 6vw;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+div.buttons {
+    place-items: center;
+    list-style: none;
+}
+
+a.booking-button {
+    color: #E6BE8A;
+    box-shadow: inset 1px 1px 0 #E6BE8A, inset -1px -1px 0 #E6BE8A;
+}
+
+a.telephone-button {
+    mix-blend-mode: normal;
+    color: #E6BE8A;
+    box-shadow: inset 1px 1px 0 #E6BE8A, inset -1px -1px 0 #E6BE8A !important;
+}
+
+a.telephone-button:hover {
+    /* color: #E6BE8A; */
+    /* box-shadow: inset 1px 1px 0 #E6BE8A, inset -1px -1px 0 #E6BE8A; */
+}
+
+.scissors-big {
+    width: 150px;
+    rotate: -90deg;
+    margin: 2rem auto;
+    mix-blend-mode: overlay;
+}

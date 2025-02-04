@@ -5,14 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barber Shop</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/css/main.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Welcome to the Barber Shop!</h1>
-        <p>Book an appointment with our professional barbers.</p>
-        <a class="button" href="/bookings">View Appointments</a>
+        {% include "navigation.html" %}
+        {% include "demo-video.html" %}
+        <h1>Nálunk a hagyomány és a rusztikus stílus találkozik</h1>
+        <div class="cta-container">
+            <a class="booking-button" href="/booking">Időpont <br> foglalás</a>
+            <img src="../assets/scissors.svg" alt="">
+            <a :disabled="true" class="telephone-button" href="tel:+36705382789">+36 70 53 82 789</a>
+        </div>
+        <!-- <img class="scissors-big" src="../assets/scissors.svg" alt=""> -->
+        <p class="copyright">© 2025 Figaro Barber Shop. Minden jog fenntartva.</p>
     </div>
 </body>
 

@@ -1,0 +1,23 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: red;
+    margin-bottom: 2rem;
+    padding: 1.7rem;
+}
+
+nav * {
+    font-weight: 600;
+    color: ivory;
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    font-family: "Frank Ruhl Libre", serif;
+    text-transform: uppercase;
+}
+
+nav li a {
+    text-decoration: none;
+}
