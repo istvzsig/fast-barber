@@ -1,0 +1,16 @@
+<form id="booking-form">
+    <label for="username">Your Name:</label>
+    <input type="text" id="username" required>
+
+    <label for="barber">Choose a Barber:</label>
+    <select id="barber">
+        {% for barber in barbers %}
+        <option value="{{ barber.id }}">{{ barber.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="appointment-time">Appointment Time:</label>
+    <input type="datetime-local" id="appointment-time" required>
+
+    <button type="submit">Book Now</button>
+</form>

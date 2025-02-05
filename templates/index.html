@@ -9,16 +9,16 @@
 </head>
 
 <body>
+    {% include "navigation.html" %}
     <div class="container">
-        {% include "navigation.html" %}
         {% include "demo-video.html" %}
-        <h1>Nálunk a hagyomány és a rusztikus stílus találkozik</h1>
+        <h1>Here, tradition and rustic style meet.</h1>
         <div class="cta-container">
-            <a class="booking-button" href="/booking">Időpont <br> foglalás</a>
-            <img src="../assets/scissors.svg" alt="">
-            <a :disabled="true" class="telephone-button" href="tel:+36705382789">+36 70 53 82 789</a>
+            <a class="booking-button" href="/bookings">Seat <br> reservation</a>
+            <img src="/static/assets/scissors.svg" alt="">
+            <a disabled=" true" class="telephone-button" href="tel:+36204334421">+36 20 433 4421</a>
         </div>
-        <!-- <img class="scissors-big" src="../assets/scissors.svg" alt=""> -->
+        <img class="scissors-big" src="/static/assets/scissors.svg" alt="">
         <p class="copyright">© 2025 Figaro Barber Shop. Minden jog fenntartva.</p>
     </div>
 </body>
