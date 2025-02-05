@@ -12,14 +12,15 @@
     {% include "navigation.html" %}
     <div class="container">
         {% include "demo-video.html" %}
-        <h1>Here, tradition and rustic style meet.</h1>
+        <h1>Here, tradition and rustic style meet</h1>
+        {% include "scissors.html" %}
         <div class="cta-container">
             <a class="booking-button" href="/bookings">Seat <br> reservation</a>
-            <img src="/static/assets/scissors.svg" alt="">
             <a disabled=" true" class="telephone-button" href="tel:+36204334421">+36 20 433 4421</a>
         </div>
-        <img class="scissors-big" src="/static/assets/scissors.svg" alt="">
-        <p class="copyright">© 2025 Figaro Barber Shop. Minden jog fenntartva.</p>
+        {% set class_name = "scissors-big" %}
+        {% include "scissors.html" %}
+        {% include "footer.html" %}
     </div>
 </body>
 

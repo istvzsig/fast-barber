@@ -1,6 +1,18 @@
 @import url('./reset.css');
 @import url('./navigation.css');
 @import url('./demo-video.css');
+@import url('./scissors.css');
+@import url('./footer.css');
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ensure content is still scrollable */
+body {
+    overflow: auto;
+}
 
 /* TODO: Extract this styles */
 div.container {
@@ -26,15 +38,6 @@ div.container>h4 {
     font-family: "Montserrat", sans-serif;
     color: ivory;
     text-align: center;
-
-}
-
-p.copyright {
-    text-align: center;
-    font-size: 10pt;
-    color: ivory;
-    opacity: 100%;
-    mix-blend-mode: overlay;
 
 }
 
@@ -81,11 +84,4 @@ a.telephone-button {
 a.telephone-button:hover {
     /* color: #E6BE8A; */
     /* box-shadow: inset 1px 1px 0 #E6BE8A, inset -1px -1px 0 #E6BE8A; */
-}
-
-.scissors-big {
-    width: 150px;
-    rotate: -90deg;
-    margin: 2rem auto;
-    mix-blend-mode: overlay;
 }
