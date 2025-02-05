@@ -1,0 +1,11 @@
+footer p.copyright {
+    width: 100%;
+    text-align: center;
+    font-size: 10pt;
+    color: ivory;
+    opacity: 100%;
+    mix-blend-mode: overlay;
+    position: fixed;
+    bottom: 0;
+    padding: 1rem 0;
+}
