@@ -4,105 +4,32 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
 from passlib.context import CryptContext
-from jose import JWTError, jwt
-from datetime import datetime, timedelta
-from pydantic import BaseModel
-from typing import Optional, List
+from typing import List
 
 from pathlib import Path
+
+from package.dependencies import get_db
+from package.helpers import create_access_token, get_database_url, get_password_hash, verify_password
+from package.models import Barber, Booking, User
+from package.schemas import BarberCreate, BookingCreate, UserCreate
 
 # FastAPI app
 app = FastAPI()
 
 # Set up templates directory
-BASE_DIR = Path(__file__).resolve().parent
-templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+templates = Jinja2Templates(directory=str(Path(__file__).resolve().parent / "templates"))
 
 # Serve static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Database setup
-DATABASE_URL = "sqlite:///./barbershop.db"
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
 
-# Security
-SECRET_KEY = "your_secret_key"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Models
-class User(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
-
-class Barber(Base):
-    __tablename__ = "barbers"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-
-class Booking(Base):
-    __tablename__ = "bookings"
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    barber_id = Column(Integer, ForeignKey("barbers.id"))
-    appointment_time = Column(DateTime)
-
-Base.metadata.create_all(bind=engine)
-
-# Pydantic Schemas
-class UserCreate(BaseModel):
-    username: str
-    password: str
-
-class BarberCreate(BaseModel):
-    name: str
-
-class BookingCreate(BaseModel):
-    user_id: int
-    barber_id: int
-    appointment_time: datetime
-
-class TokenData(BaseModel):
-    username: Optional[str] = None
-
-class BookingCreate(BaseModel):
-    username: str
-    barber_id: int
-    appointment_time: datetime
-
-# Dependency to get DB session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-# Helper Functions
-def get_password_hash(password):
-    return pwd_context.hash(password)
-
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-def create_access_token(data: dict, expires_delta: timedelta = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 # Authentication
 @app.post("/register/")
 def register(user: UserCreate, db: Session = Depends(get_db)):
-    hashed_password = get_password_hash(user.password)
+    hashed_password = get_password_hash(pwd_context, user.password)
     db_user = User(username=user.username, hashed_password=hashed_password)
     db.add(db_user)
     db.commit()
