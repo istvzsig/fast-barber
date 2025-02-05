@@ -10,17 +10,18 @@ div.container {
     font-family: "Frank Ruhl Libre", serif;
     font-optical-sizing: auto;
     font-style: normal;
+    padding-top: 100px;
 }
 
-h1 {
+div.container>h1 {
     font-size: 7vw;
     color: ivory;
-    text-transform: uppercase;
     text-align: center;
     letter-spacing: 5px;
+    font-style: italic;
 }
 
-h4 {
+div.container>h4 {
     font-size: 4vw;
     font-family: "Montserrat", sans-serif;
     color: ivory;
@@ -42,6 +43,10 @@ div.cta-container {
     grid: auto / auto;
     justify-content: center;
     padding: 2rem 0;
+}
+
+div.cta-container * {
+    text-decoration: none;
 }
 
 div.cta-container *:not(img, p) {
