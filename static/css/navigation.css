@@ -1,16 +1,15 @@
 nav {
-    position: fixed;
-    width: 100%;
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
-    padding: 1.7rem 0;
+    padding: 1rem 2rem;
     backdrop-filter: blur(5px);
 }
 
 nav * {
-    font-weight: 600;
+    font-size: 21px;
     color: ivory;
     background-color: transparent;
     outline: 0;
@@ -18,8 +17,14 @@ nav * {
     cursor: pointer;
     font-family: "Frank Ruhl Libre", serif;
     text-transform: uppercase;
+    padding: 0;
 }
 
 nav li a {
     text-decoration: none;
+}
+
+
+nav img.logo {
+    margin: 1rem auto;
 }
