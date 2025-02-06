@@ -1,13 +1,17 @@
 from sqlalchemy import Time, create_engine, Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
-
 from package.helpers import get_database_url
 
 engine = create_engine(get_database_url(), connect_args={
                        "check_same_thread": False})
 Base = declarative_base()
 
-Base.metadata.create_all(bind=engine)
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
 
 
 class Barber(Base):
@@ -30,8 +34,16 @@ class AvailableHours(Base):
 
 class Booking(Base):
     __tablename__ = "bookings"
-
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     barber_id = Column(Integer, ForeignKey("barbers.id"))
     appointment_time = Column(Time)
+
+
+def create_tables():
+    print("🗄️ Creating database tables if they do not exist...")
+    Base.metadata.create_all(bind=engine)
+    print("✅ Database setup completed.")
+
+
+create_tables()
