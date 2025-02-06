@@ -1,0 +1,11 @@
+<h1>Select Your Barber</h1>
+<div id="barber-selection">
+    {% for barber in barbers %}
+    <div class="barber-option" data-barber-id="{{ barber.id }}">
+        <ul>
+            <p>{{barber.name}}</p>
+            <p>{{barber.id}}</p>
+        </ul>
+    </div>
+    {% endfor %}
+</div>
