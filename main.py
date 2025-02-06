@@ -7,9 +7,10 @@ from typing import List
 
 from pathlib import Path
 
+from package.crud import get_available_hours, set_available_hours
 from package.dependencies import get_db
 from package.models import Barber, Booking, User
-from package.schemas import BarberCreate, BookingCreate
+from package.schemas import AvailableHoursCreate, AvailableHoursResponse, BarberCreate, BookingCreate
 
 app = FastAPI()
 
@@ -40,6 +41,17 @@ def list_barbers(db: Session = Depends(get_db)):
     return db.query(Barber).all()
 
 
+@app.post("/barbers/{barber_id}/available_hours/")
+def add_available_hours(barber_id: int, available_hours: list[AvailableHoursCreate], db: Session = Depends(get_db)):
+    set_available_hours(db, barber_id, available_hours)
+    return {"message": "Available hours set successfully"}
+
+
+@app.get("/barbers/{barber_id}/available_hours/", response_model=list[AvailableHoursResponse])
+def fetch_available_hours(barber_id: int, db: Session = Depends(get_db)):
+    return get_available_hours(db, barber_id)
+
+
 @app.get("/bookings/")
 def get_bookings(request: Request, db: Session = Depends(get_db)):
     barbers = db.query(Barber).all()
@@ -48,7 +60,8 @@ def get_bookings(request: Request, db: Session = Depends(get_db)):
     formatted_bookings = []
     for booking in bookings:
         user = db.query(User).filter(User.id == booking.user_id).first()
-        barber = db.query(Barber).filter(Barber.id == booking.barber_id).first()
+        barber = db.query(Barber).filter(
+            Barber.id == booking.barber_id).first()
         formatted_bookings.append(
             {
                 "user_name": user.username if user else "Unknown",
