@@ -4,7 +4,7 @@ from typing import List
 
 from package.models import Barber
 from package.schemas import BarberCreate
-from package.dependencies import get_db
+from db.database import get_db
 
 router = APIRouter()
 

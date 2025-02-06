@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from package.models import Booking, User, Barber
 from package.schemas import BookingCreate
-from package.dependencies import get_db
+from db.database import get_db
 from package.helpers import parse_time_str
 
 router = APIRouter()
