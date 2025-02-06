@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to the database file
-DB_FILE="/db/barbershop.db"
+DB_FILE="db/barbershop.db"
 
 # Check if the database file exists
 if [ ! -f "$DB_FILE" ]; then
