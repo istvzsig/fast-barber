@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 from jose import jwt
 
 
-# Helper Functions
 def get_secret_key():
     return os.getenv("SECRET_KEY", "default_secret_key")
 
