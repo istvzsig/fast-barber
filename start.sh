@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DB_FILE="/db/barbershop.db"
+
 # Project setup script
 echo "🚀 Starting project setup..."
 
@@ -31,12 +33,11 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 # Run database migrations (if using SQLite, no migrations needed)
-if [ ! -f "barbershop.db" ]; then
+if [ ! -f "$DB_FILE" ]; then
     echo "🗄️ Setting up the database..."
-    python -c "from main import Base, engine; Base.metadata.create_all(engine)"
+    python -c "from package.models import Base, engine; Base.metadata.create_all(engine)"
 fi
 
 # Start FastAPI server
 echo "🚀 Starting FastAPI server..."
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-
