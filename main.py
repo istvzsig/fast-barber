@@ -11,6 +11,7 @@ from package.crud import get_available_hours, set_available_hours
 from package.dependencies import get_db
 from package.models import Barber, Booking, User
 from package.schemas import AvailableHoursCreate, AvailableHoursResponse, BarberCreate, BookingCreate
+from package.helpers import parse_time_str
 
 app = FastAPI()
 
@@ -58,6 +59,7 @@ def get_bookings(request: Request, db: Session = Depends(get_db)):
 
     bookings = reversed(db.query(Booking).all())
     formatted_bookings = []
+
     for booking in bookings:
         user = db.query(User).filter(User.id == booking.user_id).first()
         barber = db.query(Barber).filter(
@@ -84,12 +86,12 @@ def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
         db.add(user)
         db.commit()
         db.refresh(user)
-
     new_booking = Booking(
         user_id=user.id,
         barber_id=booking.barber_id,
-        appointment_time=booking.appointment_time,
+        appointment_time=parse_time_str(booking.appointment_time),
     )
     db.add(new_booking)
     db.commit()
-    return {"message": "Booking successful"}
+    db.refresh(new_booking)
+    return {"booking": new_booking}

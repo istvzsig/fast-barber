@@ -31,3 +31,13 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, get_secret_key(), algorithm=get_algorithm())
+
+
+def parse_time_str(time_str: str) -> datetime:
+    try:
+        appointment_time = datetime.fromisoformat(str(time_str))
+    except ValueError:
+        appointment_time = datetime.combine(
+            datetime.today(), datetime.strptime(str(time_str), "%H:%M:%S").time())
+
+    return appointment_time

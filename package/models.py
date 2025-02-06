@@ -1,4 +1,4 @@
-from sqlalchemy import Time, create_engine, Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import DateTime, Time, create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 from package.helpers import get_database_url
 
@@ -37,7 +37,7 @@ class Booking(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     barber_id = Column(Integer, ForeignKey("barbers.id"))
-    appointment_time = Column(Time)
+    appointment_time = Column(DateTime)
 
 
 def create_tables():
