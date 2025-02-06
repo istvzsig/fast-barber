@@ -1,7 +1,5 @@
 import os
 from datetime import datetime, timedelta
-from pathlib import Path
-from fastapi.templating import Jinja2Templates
 from jose import jwt
 
 
@@ -14,7 +12,8 @@ def get_algorithm():
 
 
 def get_database_url():
-    return os.getenv("DATABASE_URL", "sqlite:///./barbershop.db")
+    db_path = os.path.join(os.path.dirname(__file__), "../db/barbershop.db")
+    return f"sqlite:///{db_path}"
 
 
 def get_password_hash(context, password):
