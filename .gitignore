@@ -3,3 +3,4 @@ venv/
 barbershop.db
 .env
 .DS_Store
+.vscode/
