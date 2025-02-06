@@ -2,6 +2,7 @@
 @import url('./navigation.css');
 @import url('./demo-video.css');
 @import url('./scissors.css');
+@import url('./form.css');
 @import url('./footer.css');
 
 /* Hide scrollbar */
@@ -22,7 +23,6 @@ div.container {
     font-family: "Frank Ruhl Libre", serif;
     font-optical-sizing: auto;
     font-style: normal;
-    padding-top: 100px;
 }
 
 div.container>h1 {

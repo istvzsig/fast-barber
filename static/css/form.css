@@ -1,0 +1,32 @@
+form#booking-form {
+    text-align: center;
+    background-color: red;
+}
+
+form#booking-form label {
+    display: block;
+}
+
+form#booking-form #barber-selection {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+form#booking-form #barber-selection .barber-option {
+    width: calc(calc(100%/3) - 2rem);
+    background-size: cover;
+    background-position: center center;
+    height: 50vh;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+form#booking-form #barber-selection .barber-option.not-selected {
+    opacity: 0.7;
+}
+
+
+form#booking-form #barber-selection .barber-option.selected {
+    opacity: 1;
+}
