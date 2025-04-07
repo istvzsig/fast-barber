@@ -35,7 +35,7 @@ def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
 @router.get("/")
 def get_bookings(request: Request, db: Session = Depends(get_db)):
     barbers = db.query(Barber).all()
-    bookings = reversed(db.query(Booking).all())
+    bookings = db.query(Booking).all()
     formatted_bookings = []
 
     for booking in bookings:
