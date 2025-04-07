@@ -6,10 +6,18 @@ class BarberCreate(BaseModel):
     name: str
 
 
+class BarberResponse(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        from_attributes = True
+
+
 class BookingCreate(BaseModel):
     username: str
     barber_id: int
-    appointment_time: datetime  # This expects the full datetime format
+    appointment_time: datetime
 
 
 class AvailableHoursCreate(BaseModel):
